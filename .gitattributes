@@ -7,3 +7,5 @@
 *.yml text eol=lf
 *.ps1 text eol=crlf
 *.mp4 binary
+third_party_licenses/** -text -whitespace
+third_party_licenses/OpenSSL/AUTHORS.md conflict-marker-size=32

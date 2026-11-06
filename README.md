@@ -6,6 +6,8 @@ Windows 本地课程任务助手。将视频学习、每日问答草稿和结果
 
 [下载 Windows x64 预览版](https://github.com/JamesMake520/course-study-assistant/releases/tag/v0.1.2)。解压后双击 `CourseStudyAssistant.exe`，首次使用可直接体验本地演示课程。
 
+如果系统提示缺少 `VCRUNTIME140.dll` 或 `VCRUNTIME140_1.dll`，请从[微软官网下载并安装 Visual C++ v14 x64 运行库](https://learn.microsoft.com/zh-cn/cpp/windows/latest-supported-vc-redist)，然后重新启动助手。
+
 ![本地演示控制台](docs/preview.png)
 
 ## 深色 BI 看板
