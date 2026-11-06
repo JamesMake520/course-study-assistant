@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#090e18">
+  <title>知行 · 课程助手</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/dashboard.js" defer></script>
+  <script src="/static/grading.js" defer></script>
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#overview" aria-label="知行课程助手首页"><span class="brand-mark">知</span><span>知行<span class="brand-caption">COURSE INTELLIGENCE</span></span></a>
+    <p class="nav-caption">WORKSPACE / 学习工作台</p>
+    <nav aria-label="主要导航">
+      <button class="nav-item active" data-page="overview" aria-current="page"><span aria-hidden="true">◫</span>学习总览</button>
+      <button class="nav-item" data-page="videos"><span aria-hidden="true">▷</span>视频学习</button>
+      <button class="nav-item" data-page="questions"><span aria-hidden="true">☷</span>每日问答</button>
+      <button class="nav-item" data-page="grading"><span aria-hidden="true">▤</span>评分细则</button>
+      <button class="nav-item" data-page="settings"><span aria-hidden="true">⚙</span>学习设置</button>
+      <button class="nav-item" data-page="records"><span aria-hidden="true">≡</span>运行记录</button>
+    </nav>
+    <div class="sidebar-note"><span class="sidebar-system-label">DAILY SCHEDULE</span><strong id="schedule-summary">每日计划尚未开启</strong><p>定时任务需本地助手保持运行</p><button class="text-button" data-go="settings">管理执行计划 <span aria-hidden="true">↗</span></button></div>
+    <div class="local-label"><span class="status-dot"></span>本地学习工作台<button class="exit-button" data-action="app_exit">退出助手</button></div>
+  </aside>
+
+  <main>
+    <header class="topbar"><span class="breadcrumb">工作台 <span>/</span> <strong id="page-name">学习总览</strong></span><div class="topbar-right"><span class="live-label">LOCAL ANALYTICS</span><span class="connection" id="connection"><span class="status-dot"></span><span id="connection-text">正在连接本地服务</span></span></div></header>
+    <div class="main-inner">
+      <div id="mode-banner" class="mode-banner"><span class="mode-icon" aria-hidden="true">◉</span><div><strong id="mode-title">正在读取学习模式</strong><p id="mode-description">等待读取本地设置与平台状态。</p></div><button class="text-button" data-go="settings">管理设置 <span aria-hidden="true">↗</span></button></div>
+      <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+      <div id="busy-notice" class="busy-notice" role="status" hidden><span class="spinner" aria-hidden="true"></span><span>正在处理操作，请稍候。页面进度会自动更新。</span></div>
+
+      <section id="page-overview" class="page active" aria-labelledby="overview-heading">
+        <div class="page-heading dashboard-heading"><div><h1 id="overview-heading">学习数据总览 <span class="heading-tag">OVERVIEW</span></h1><p class="subtitle">当前课程状态、今日目标与本机核验记录</p></div><div class="dashboard-actions"><span id="today-label" class="date-label">正在读取日期</span><button class="button primary" data-action="browser_open">打开课程浏览器 <span aria-hidden="true">↗</span></button></div></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-label">已核验视频 <span class="stat-icon" aria-hidden="true">▷</span></div><p class="stat-value"><span id="stat-videos">—</span><small id="stat-video-total">/ — 节</small></p><p class="stat-foot" id="stat-video-note">等待读取课程目录</p></article>
+          <article class="stat-card"><div class="stat-label">今日提问 <span class="stat-icon" aria-hidden="true">?</span></div><p class="stat-value"><span id="stat-questions">—</span><small id="stat-question-goal">/ 3 条</small></p><p class="stat-foot" id="stat-question-note">尚未核验今日个人记录</p></article>
+          <article class="stat-card"><div class="stat-label">今日回答 <span class="stat-icon" aria-hidden="true">↳</span></div><p class="stat-value"><span id="stat-answers">—</span><small id="stat-answer-goal">/ 3 条</small></p><p class="stat-foot" id="stat-answer-note">尚未核验今日个人记录</p></article>
+          <article class="stat-card"><div class="stat-label">待审阅草稿 <span class="stat-icon" aria-hidden="true">✎</span></div><p class="stat-value"><span id="stat-drafts">—</span><small>条</small></p><p class="stat-foot">确认内容后，再由你发布</p></article>
+        </div>
+        <article class="panel grading-overview"><div class="grading-overview-title"><span class="grading-symbol" aria-hidden="true">▤</span><div><h2>课程评分细则</h2><p id="grading-overview-summary" class="chart-caption">尚未导入评分细则；可粘贴课程要求后逐项核对。</p></div></div><div class="grading-overview-values"><div><span>目标分</span><strong id="grading-overview-target">未知</strong></div><div><span>本地预计分</span><strong id="grading-overview-score">未知</strong></div></div><button class="button secondary" data-go="grading">导入 / 核对细则 <span aria-hidden="true">→</span></button></article>
+        <div class="analytics-grid">
+          <article class="panel trend-panel"><div class="panel-heading"><div><h2>已核验问答分布</h2><p id="trend-period" class="chart-caption">当前课程 · 本机记录</p></div><div class="range-switch" role="group" aria-label="选择统计范围"><button data-trend-range="7" aria-pressed="false">7 天</button><button data-trend-range="14" class="active" aria-pressed="true">14 天</button><button data-trend-range="30" aria-pressed="false">30 天</button></div></div><div class="trend-metrics"><div><strong id="trend-total">—</strong><span>条已核验记录</span></div><div class="chart-keys"><span><i class="key-question"></i>提问</span><span><i class="key-answer"></i>回答</span><span><i class="key-total"></i>合计</span></div></div><div class="trend-chart-wrap"><svg id="trend-chart" viewBox="0 0 800 178" role="img" aria-label="等待本机已核验问答记录"></svg><p id="trend-empty" class="chart-empty">当前范围暂无本机已核验记录</p></div><p class="chart-source">按草稿创建 / 最近保存日分组，非核验日或平台历史总量</p></article>
+          <article class="panel video-chart-panel"><div class="panel-heading"><h2>视频状态分布</h2><span class="panel-code">COURSE</span></div><div class="donut-wrap"><svg id="video-donut" viewBox="0 0 160 160" role="img" aria-label="等待课程目录"></svg><div class="donut-center"><strong id="video-ring-value">—</strong><span id="video-ring-label">尚未读取</span></div></div><div id="video-legend" class="video-legend"></div></article>
+          <article class="panel goals-panel"><div class="panel-heading"><h2>今日问答目标</h2><button class="text-button" data-action="qa_sync">核验 <span aria-hidden="true">↻</span></button></div><div id="qa-goals-chart" class="goals-chart"></div><div class="goal-source"><span class="status-dot"></span>仅统计今日已核验的个人记录</div><button class="button secondary goals-action" data-go="questions">进入问答工作台 <span aria-hidden="true">→</span></button></article>
+        </div>
+        <div class="details-grid">
+          <article class="panel course-panel"><div class="panel-heading"><div class="course-title-block"><h2 id="overview-course-name">尚未读取课程</h2><p class="chart-caption" id="overview-course-note">打开课程浏览器后读取目录。</p></div><span class="badge" id="overview-browser-status">尚未连接</span></div><div class="table-scroll"><table class="mini-table"><thead><tr><th scope="col">#</th><th scope="col">视频章节</th><th scope="col">页面进度</th><th scope="col">核验状态</th></tr></thead><tbody id="course-mini-table"><tr><td colspan="4" class="table-empty">尚未读取课程目录</td></tr></tbody></table></div><div class="course-table-footer"><div class="course-aggregate"><div class="progress-track"><div id="course-progress"></div></div><strong id="course-progress-label">尚未读取</strong></div><span id="course-mini-note" class="chart-caption">已读取课时</span><button class="text-button" data-go="videos">全部目录 →</button></div></article>
+          <article class="panel recent-panel"><div class="panel-heading"><div><h2>最近运行事件</h2><p class="chart-caption">跨课程 · 最近 60 条本机日志中的最新记录</p></div><button class="text-button" data-go="records">全部 →</button></div><div id="recent-events" class="event-list"><p class="empty-small">暂无运行记录。</p></div></article>
+        </div>
+      </section>
+
+      <section id="page-videos" class="page" aria-labelledby="videos-heading" hidden>
+        <div class="page-heading"><div><p class="eyebrow">FOCUS & PROGRESS</p><h1 id="videos-heading">视频学习</h1><p class="subtitle">读取目录，正常播放，再核验页面上的学习进度。</p></div></div>
+        <article class="panel"><div class="panel-heading"><div><h2 id="video-course-name">尚未读取课程</h2><p class="muted" id="browser-detail">打开课程浏览器开始。</p></div><span id="video-browser-status" class="badge">尚未连接</span></div><div class="button-row wrap"><button class="button primary" data-action="browser_open">打开课程浏览器</button><button class="button secondary" data-action="adopt_current">接管当前课程</button><button class="button secondary" data-action="scan">读取 / 核验目录</button><button class="button secondary" data-action="video_start">开始 / 继续学习</button><button class="button quiet" data-action="pause">暂停学习</button></div><p class="field-help">登录后在专用浏览器的新标签页打开了课程？点击“接管当前课程”，让助手绑定该课程。遇到验证码、确认弹窗或平台限制时，请到浏览器处理后重新读取。显示 100% 的视频仍需页面完成标记才能记为已核验。</p></article>
+        <article class="panel lesson-panel"><div class="panel-heading"><h2>课程目录</h2><span id="lesson-count" class="muted">0 节视频</span></div><div class="lesson-table-head" aria-hidden="true"><span>#</span><span>视频章节</span><span>页面进度</span><span>核验状态</span></div><div id="lesson-list" class="lesson-list" role="table" aria-label="课程目录"><div class="empty-state"><span aria-hidden="true">▷</span><h3>尚未读取课程目录</h3><p>打开课程浏览器并完成登录，然后点击“读取 / 核验目录”。</p></div></div></article>
+      </section>
+
+      <section id="page-questions" class="page" aria-labelledby="questions-heading" hidden>
+        <div class="page-heading"><div><p class="eyebrow">THINK, WRITE, REVIEW</p><h1 id="questions-heading">每日问答</h1><p class="subtitle">把自己的理解写下来。每条内容都在审阅后发布。</p></div><button class="button secondary" data-action="qa_sync">核验今日个人记录</button></div>
+        <div id="qa-status" class="info-strip">尚未核验今日记录，不能据此判断还需发布几条。</div>
+        <div class="qa-create-grid">
+          <article class="panel"><div class="panel-heading"><div><p class="eyebrow">WRITE YOUR OWN</p><h2>新建草稿</h2></div><span class="badge neutral">先保存，后发布</span></div><form id="draft-form"><div class="field-row"><label>内容类型<select name="kind"><option value="question">提问</option><option value="answer">回答</option></select></label><label>提问标题 <span class="optional">回答可不填</span><input name="title" maxlength="300" placeholder="用一句话概括你的问题"></label></div><label>正文<textarea name="body" required rows="5" maxlength="12000" placeholder="写下问题、思考过程或你的回答…"></textarea></label><label>目标问题链接 <span class="optional">回答时必填</span><input name="target_url" type="url" placeholder="https://…"></label><button type="submit" class="button primary">保存为草稿</button></form></article>
+          <article class="panel ai-panel"><p class="eyebrow">A LITTLE HELP WITH WORDS</p><h2>让 AI 帮你起草</h2><p class="muted">补充课程知识点与自己的想法，让草稿更贴近这次学习。</p><form id="generate-form"><div class="field-row"><label>草稿类型<select name="kind"><option value="question">提问</option><option value="answer">回答</option></select></label><label>目标问题链接<input name="target_url" type="url" placeholder="回答时必填"></label></div><label>课程背景与写作要求<textarea name="context" required rows="5" maxlength="12000" placeholder="例如：本节讲了什么？有哪些不理解的点？回答哪个问题？"></textarea></label><p class="cost-note">每次点击仅生成 1 条草稿，使用已配置的 AI 接口，可能消耗额度。生成内容需要你核对。</p><button type="submit" class="button secondary">生成 1 条 AI 草稿</button></form></article>
+        </div>
+        <article class="panel"><div class="panel-heading"><div><h2>草稿与发布状态</h2><p class="muted">草稿保存不代表已发布；只有个人记录核验通过，才记为完成。</p></div><span id="draft-count" class="badge neutral">0 条</span></div><div id="draft-list" class="draft-list"><div class="empty-state"><span aria-hidden="true">✎</span><h3>你的想法，从这里开始</h3><p>手写一条草稿，或让 AI 辅助起草。</p></div></div></article>
+        <article class="panel"><div class="panel-heading"><h2>今日个人记录</h2><span id="qa-record-date" class="muted">等待核验</span></div><div id="qa-records" class="qa-records"><p class="empty-small">读取平台记录后，将在这里展示。</p></div></article>
+      </section>
+
+      <section id="page-grading" class="page" aria-labelledby="grading-heading" hidden>
+        <div class="page-heading"><div><p class="eyebrow">READ, REVIEW, SAVE</p><h1 id="grading-heading">评分细则</h1><p class="subtitle">把课程要求整理成可核对的规则，保存到当前课程。</p></div><span id="grading-dirty" class="badge warning" hidden>有未保存的修改</span></div>
+        <article class="panel grading-saved-panel"><div class="panel-heading"><div><h2>当前课程已保存的细则</h2><p id="grading-saved-summary" class="muted">正在读取本地规则。</p></div><span id="grading-saved-badge" class="badge neutral">尚未保存</span></div><div class="grading-saved-metrics"><div><span>目标分</span><strong id="grading-saved-target">未知</strong></div><div><span>本地预计分</span><strong id="grading-saved-score">未知</strong></div></div><p id="grading-score-note" class="field-help">未明确的评分公式与缺少证据的项目保持未知。这里的估算不是平台成绩。</p><div class="button-row wrap"><button id="grading-reload" type="button" class="button secondary">重新载入当前课程规则</button><button id="grading-export" type="button" class="button quiet" disabled>导出已保存 JSON</button></div></article>
+        <div id="grading-conflict" class="notice grading-conflict" role="status" hidden></div>
+        <article class="panel grading-import-panel"><div class="panel-heading"><div><p class="eyebrow">STEP 01 / 导入要求</p><h2>粘贴文字，或选择本地文件</h2></div><span class="badge neutral">仅本机处理</span></div><p class="field-help">支持 UTF-8 编码的 .txt、.md、.json。文字文件上限 100 KiB / 20,000 字；规则 JSON 上限 500 KiB / 160,000 字，便于回导已导出的规则。截图和 PDF 本版不直接识别，请先复制其中的文字。解析失败会保留已保存的规则。</p><div class="grading-import-tools"><label>输入格式<select id="grading-format"><option value="text">普通文字 / Markdown</option><option value="json">规则 JSON</option></select></label><label class="grading-file-label">导入文件<input id="grading-file" type="file" accept=".txt,.md,.json,text/plain,text/markdown,application/json"><span id="grading-file-note" class="field-help">只读取你选择的文件。</span></label></div><label for="grading-source">评分要求原文<textarea id="grading-source" rows="7" maxlength="20000" spellcheck="false" placeholder="粘贴课程评分要求，例如：学习视频共 20 天，每天至少 10 分钟；每日提问、回答的要求……"></textarea></label><div class="grading-import-footer"><span id="grading-source-count" class="field-help">0 / 20,000 字</span><button id="grading-parse" type="button" class="button primary" disabled>解析为可编辑草稿</button></div><p id="grading-import-note" class="field-help" role="status">解析只整理草稿；核对并保存后才会成为当前课程规则。</p></article>
+        <form id="grading-form" hidden>
+          <article class="panel"><div class="panel-heading"><div><p class="eyebrow">STEP 02 / 逐项核对</p><h2>规则草稿</h2></div><span id="grading-rule-count" class="badge neutral">0 项</span></div><div class="grading-meta-grid"><label>课程名称<input id="grading-course-name" maxlength="200" placeholder="填写课程名称"></label><label>课程总分 <span class="optional">不明确请留空</span><input id="grading-total-score" type="number" min="0" max="1000000" step="any" placeholder="未知"></label><label>目标分 <span class="optional">可留空</span><input id="grading-target-score" type="number" min="0" max="1000000" step="any" placeholder="未知"></label></div><div id="grading-warnings" class="grading-warnings" hidden><h3>需要核对</h3><ul id="grading-warning-list"></ul></div><p class="field-help">未找到明确要求时保留空值或“公式未知”。“每天至少 10 分钟”只是一个条件，不表示助手已经实现按天累计或达标任务。</p><div id="grading-rule-list" class="grading-rule-list"></div><button id="grading-add" type="button" class="button secondary">＋ 添加一项规则</button></article>
+          <article class="panel grading-review-panel"><p class="eyebrow">STEP 03 / 确认保存</p><label class="check-label"><input id="grading-reviewed" type="checkbox"><span>我已对照课程原文，核对课程、目标、周期和评分公式；不确定的信息已保持未知。</span></label><p id="grading-review-note" class="field-help">任何编辑都会取消确认，需要重新核对。保存仅记录规则，不代表学习完成或平台已给分。</p><button id="grading-save" type="submit" class="button primary" disabled>确认保存当前课程细则</button></article>
+        </form>
+      </section>
+
+      <section id="page-settings" class="page" aria-labelledby="settings-heading" hidden>
+        <div class="page-heading"><div><p class="eyebrow">MAKE IT YOURS</p><h1 id="settings-heading">学习设置</h1><p class="subtitle">配置课程与学习计划。修改后记得保存。</p></div><span id="settings-dirty" class="badge warning" hidden>有未保存的修改</span></div>
+        <form id="settings-form">
+          <article class="panel settings-panel"><div class="settings-intro"><span class="section-number">01</span><h2>课程连接</h2><p>演示与真实课程分别记录，先熟悉流程，再连接真实课程。</p></div><div class="settings-fields"><label>运行模式<select name="mode"><option value="demo">演示模式 · 本地练习</option><option value="zhihuishu">真实平台 · 智慧树</option></select></label><label>课程链接<input name="course_url" type="url" placeholder="https://…"><span class="field-help">可先留空登录，再接管当前课程。也可填写你拥有学习权限的课程链接。</span></label><label>问答页面链接<input name="qa_url" type="url" placeholder="https://…"><span class="field-help">问答操作前填写对应课程的问答地址；只学习视频时可留空。</span></label><div class="notice subtle">真实平台需要在专用浏览器中登录。未通过当前页面核验的能力和任务，不会被标记为完成。</div></div></article>
+          <article class="panel settings-panel"><div class="settings-intro"><span class="section-number">02</span><h2>每日学习计划</h2><p>核验当天个人记录后，按目标补齐；草稿发布始终由你审阅确认。</p></div><div class="settings-fields"><div class="field-row"><label>每日提问目标<input name="question_goal" type="number" min="0" max="10" step="1" required></label><label>每日回答目标<input name="answer_goal" type="number" min="0" max="10" step="1" required></label></div><label class="check-label"><input name="daily_enabled" type="checkbox"><span>启用每日定时任务</span></label><label>每日执行时间 <span class="optional">北京时间</span><input name="daily_time" type="time" required></label><p class="field-help">本地助手需保持运行，浏览器需保持登录。定时任务不会绕过验证码，也不会自动确认发布草稿。</p></div></article>
+          <article class="panel settings-panel"><div class="settings-intro"><span class="section-number">03</span><h2>AI 写作辅助</h2><p>连接你自己的 AI 服务。所有生成内容先进入草稿。</p></div><div class="settings-fields"><label>接口基础地址<input name="ai_base_url" type="url" required placeholder="https://api.openai.com/v1"></label><div class="field-row"><label>接口协议<select name="ai_protocol"><option value="responses">Responses</option><option value="chat_completions">Chat Completions</option></select></label><label>模型名称<input name="ai_model" maxlength="200" placeholder="填写服务支持的模型名称" autocomplete="off"></label></div><label>API 密钥 <span id="key-status" class="key-status">尚未保存</span><input name="api_key" type="password" placeholder="输入新密钥；留空保持原密钥" autocomplete="new-password" spellcheck="false"><span class="field-help">已有密钥不会回显。保存后输入框会自动清空。</span></label><label class="check-label"><input name="clear_key" type="checkbox"><span>保存时清除已存密钥</span></label><div class="test-row"><button type="button" class="button secondary" data-action="ai_test">测试已保存的 AI 配置</button><p class="field-help">测试会发送一次最小真实请求，可能消耗额度。请先保存修改。</p></div></div></article>
+          <div class="save-bar"><span id="settings-save-note">设置保存在本机，密钥不在页面回显。</span><button type="submit" class="button primary">保存设置</button></div>
+        </form>
+      </section>
+
+      <section id="page-records" class="page" aria-labelledby="records-heading" hidden>
+        <div class="page-heading"><div><p class="eyebrow">A CLEAR TRAIL</p><h1 id="records-heading">运行记录</h1><p class="subtitle">查看操作、核验结果，以及需要处理的事项。</p></div><button class="button secondary" data-action="report_export">导出本地报告</button></div>
+        <div id="export-result" class="notice" hidden></div><article class="panel"><div class="panel-heading"><div><h2>最近 60 条本机日志</h2><p class="muted">跨课程的操作记录，不代表当前课程成功率或完整历史。</p></div><span id="last-updated" class="muted">等待更新</span></div><div id="all-events" class="event-list"><p class="empty-small">暂无运行记录。</p></div></article>
+      </section>
+      <footer><span><span class="status-dot"></span> 知行 · 课程助手 / LOCAL FIRST</span><span>状态每 2 秒更新 · 页面核验为准</span></footer>
+    </div>
+  </main>
+</body>
+</html>

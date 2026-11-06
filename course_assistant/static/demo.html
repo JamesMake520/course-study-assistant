@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>学习助手 · 本地演示课程</title><link rel="stylesheet" href="/static/demo.css"></head>
+<body data-demo="course-study-assistant-v1">
+<div class="notice">本地演示环境 · 这里的播放记录与问答只保存到专用浏览器，不会提交至智慧树。</div>
+<main><header><p class="eyebrow">COURSE STUDY ASSISTANT / DEMO</p><h1 data-course-name>学习方法演示课程</h1><p>真实 HTML5 视频，正常速度播放。完整播放后才记录演示完成。</p></header>
+<section class="card"><h2>课程目录</h2><ol id="lessons">
+<li data-lesson-id="demo-1" data-progress="0" data-status="pending"><button type="button" data-select-lesson="demo-1">01 · 确定今天的学习目标</button><span data-progress-text>未完成 · 0%</span></li>
+<li data-lesson-id="demo-2" data-progress="0" data-status="pending"><button type="button" data-select-lesson="demo-2">02 · 学完后回顾与提问</button><span data-progress-text>未完成 · 0%</span></li></ol>
+<video id="lesson-video" controls preload="metadata" playsinline src="/static/demo.mp4"></video>
+<p id="video-status" role="status">当前：01 · 确定今天的学习目标</p><button data-play type="button">正常播放</button><button data-pause type="button" class="secondary">暂停视频</button></section>
+<section class="card"><h2>演示可回答的问题</h2><div id="targets">
+<article data-target="demo-question-1"><a href="#demo-question-1">学习完一节课后，怎样检查自己是否理解？</a><p>请用你自己的话说明一种可执行的回顾方法。</p></article>
+<article data-target="demo-question-2"><a href="#demo-question-2">为什么需要把较大的学习目标拆成小任务？</a><p>可以从反馈和安排时间两个角度思考。</p></article></div></section>
+<section class="card"><h2>发布演示问答</h2><p>这是演示表单。正式使用时，应先在助手中审阅草稿后再确认发布。</p>
+<form id="qa-form"><label>演示草稿编号（可留空）<input name="draft_id"></label><label>类型<select name="kind"><option value="question">提问</option><option value="answer">回答</option></select></label><label>标题<input name="title" maxlength="300"></label><label>正文<textarea name="body" rows="5" required maxlength="20000"></textarea></label><label>回答目标链接（回答时必填）<input name="target_url" type="text"></label><button type="submit">发布到演示记录</button><p id="publish-status" role="status"></p></form></section>
+<section class="card" id="personal-records" data-personal-records data-complete="true"><h2>我的演示问答记录</h2><p>按北京时间统计，刷新与重新打开浏览器后仍然保留。</p><p id="qa-counts"></p><div id="records"></div></section>
+</main><script src="/static/demo.js"></script></body></html>
